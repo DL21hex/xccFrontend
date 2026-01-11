@@ -8,10 +8,10 @@ export default function Nav() {
     <nav class="bg-sky-800">
       <ul class="container flex items-center p-3 text-gray-200">
         <li class={`border-b-2 ${active("/")} mx-1.5 sm:mx-6`}>
-          <a href="/">Home</a>
+          <a href="/">Inicio</a>
         </li>
         <li class={`border-b-2 ${active("/about")} mx-1.5 sm:mx-6`}>
-          <a href="/about">About</a>
+          <a href="/about">Acerca de</a>
         </li>
       </ul>
     </nav>
