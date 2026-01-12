@@ -3,11 +3,8 @@ import { createHandler, StartServer } from "@solidjs/start/server";
 import { Show } from "solid-js";
 import Nav from "~/components/Nav";
 import templateData from "~/data/template.json";
-import { useLocation } from "@solidjs/router";
 
 export default createHandler(({ request }) => {
-	const isLoginPage = new URL(request.url).pathname.startsWith("/login");
-
 	return (
 <StartServer
 	document={({ assets, children, scripts }) => (
@@ -19,10 +16,6 @@ export default createHandler(({ request }) => {
 			{assets}
 		</head>
 		<body class="font-sans antialiased h-full overflow-hidden">
-			<Show
-				when={!isLoginPage}
-				fallback={<div id="app-content">{children}</div>}
-			>
 			<div class="flex h-screen bg-background">
 				<aside class="border-r border-sidebar-border bg-sidebar flex flex-col h-screen transition-all duration-300 ease-in-out w-[240px]">
 					<div class="h-16 flex items-center justify-between px-3 border-b border-sidebar-border">
@@ -77,7 +70,6 @@ export default createHandler(({ request }) => {
 
 				</div>
 			</div>
-			</Show>
 		{scripts}
 		</body>
 	</html>
