@@ -3,13 +3,13 @@
 		{
 			"id": "inicio",
 			"label": "Inicio",
-			"href": "/home",
+			"href": "/home_public",
 			"icon": "home"
 		},
 		{
 			"id": "talento-humano",
 			"label": "Talento Humano",
-			"href": "hcm",
+			"href": "hcm_public",
 			"icon": "users"
 		},
 		{
