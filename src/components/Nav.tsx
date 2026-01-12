@@ -1,4 +1,4 @@
-import templateData from "~/data/template.json";
+import { For } from "solid-js";
 
 const iconMap: Record<string, string> = {
   home: 'M3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22 9 12 15 12 15 22',
@@ -20,9 +20,11 @@ interface MenuItem {
   is_active?: boolean;
 }
 
-export default function Nav() {
-  const items = templateData.main_menu as MenuItem[];
+interface NavProps {
+  items: MenuItem[];
+}
 
+export default function Nav(props: NavProps) {
   return (
     <>
       <div class="px-3 mb-2">
@@ -31,42 +33,44 @@ export default function Nav() {
         </span>
       </div>
       <nav class="space-y-0.5 px-3">
-        {items.map((item) => (
-          <div>
-            <a
-              href={item.href}
-              class={`flex items-center w-full rounded-md text-[13px] font-medium transition-all duration-150 justify-between px-3 py-2 ${
-                item.is_active
-                  ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                  : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
-              }`}
-              data-state="closed"
-              data-slot="tooltip-trigger"
-            >
-              <div class="flex items-center gap-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class={`lucide h-[18px] w-[18px] shrink-0 ${
-                    item.is_active
-                      ? "text-sidebar-accent-foreground"
-                      : "text-sidebar-foreground/60"
-                  }`}
-                >
-                  <path d={iconMap[item.icon] || ""}></path>
-                </svg>
-                <span>{item.label}</span>
-              </div>
-            </a>
-          </div>
-        ))}
+        <For each={props.items}>
+          {(item) => (
+            <div>
+              <a
+                href={item.href}
+                class={`flex items-center w-full rounded-md text-[13px] font-medium transition-all duration-150 justify-between px-3 py-2 ${
+                  item.is_active
+                    ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                    : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
+                }`}
+                data-state="closed"
+                data-slot="tooltip-trigger"
+              >
+                <div class="flex items-center gap-3">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class={`lucide h-[18px] w-[18px] shrink-0 ${
+                      item.is_active
+                        ? "text-sidebar-accent-foreground"
+                        : "text-sidebar-foreground/60"
+                    }`}
+                  >
+                    <path d={iconMap[item.icon] || ""}></path>
+                  </svg>
+                  <span>{item.label}</span>
+                </div>
+              </a>
+            </div>
+          )}
+        </For>
       </nav>
     </>
   );
