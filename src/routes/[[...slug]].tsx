@@ -1,5 +1,5 @@
 import { createSignal, For, Suspense, createEffect, Show } from "solid-js";
-import { redirect, useLocation } from "@solidjs/router";
+import { useLocation } from "@solidjs/router";
 import CTA from "~/components/CTA";
 import Card from "~/components/Card";
 
@@ -48,6 +48,24 @@ function NotFound() {
   );
 }
 
+function Loading() {
+  return (
+    <div data-slot="empty" class="flex min-w-0 flex-1 flex-col items-center justify-center gap-6 rounded-lg border-dashed p-6 text-center text-balance md:p-12 w-full">
+      <div data-slot="empty-header" class="flex max-w-sm flex-col items-center gap-2 text-center">
+        <div data-slot="empty-icon" data-variant="icon" class="mb-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 bg-muted text-foreground flex size-10 shrink-0 items-center justify-center rounded-lg [&_svg:not([class*='size-'])]:size-6">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-loader-circle size-4 animate-spin" role="status" aria-label="Loading">
+            <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+          </svg>
+        </div>
+        <div data-slot="empty-title" class="text-lg font-medium tracking-tight">Cargando</div>
+        <div data-slot="empty-description" class="text-muted-foreground [&>a:hover]:text-primary text-sm/relaxed [&>a]:underline [&>a]:underline-offset-4">
+          Por favor espere mientras cargamos el contenido.
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [items, setItems] = createSignal<ComponentItem[]>([]);
   const [error, setError] = createSignal<string | null>(null);
@@ -70,8 +88,8 @@ export default function Home() {
   });
 
   return (
-    <Suspense fallback={<div class="text-muted-foreground">Cargando...</div>}>
-      <Show when={!loading()} fallback={<div class="text-muted-foreground">Cargando...</div>}>
+    <Suspense fallback={<Loading />}>
+      <Show when={!loading()} fallback={<Loading />}>
         <Show when={!error() && items().length > 0} fallback={<NotFound />}>
           <div class="flex flex-col gap-6">
             <For each={items()}>
