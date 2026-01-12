@@ -1,10 +1,25 @@
 // @refresh reload
 import { createHandler, StartServer } from "@solidjs/start/server";
+import { getRequestEvent, isServer } from "solid-js/web";
+
 import { Show } from "solid-js";
 import Nav from "~/components/Nav";
 import templateData from "~/data/template.json";
 
 export default createHandler(({ request }) => {
+
+	const getHostname = () => {
+		if (isServer) {
+		const event = getRequestEvent();
+		return new URL(event!.request.url).hostname;
+		}
+		return window.location.hostname;
+	};
+
+	const hostname = getHostname();
+
+
+
 	return (
 <StartServer
 	document={({ assets, children, scripts }) => (
@@ -21,7 +36,9 @@ export default createHandler(({ request }) => {
 					<div class="h-16 flex items-center justify-between px-3 border-b border-sidebar-border">
 						<div class="flex items-center gap-2.5 overflow-hidden">
 							<img src="/images/crearcolombia_small.png" alt="Logo" class="w-8 h-8 shrink-0" />
-							<span class="font-semibold text-sidebar-foreground tracking-tight whitespace-nowrap">Crear Colombia</span>
+							<span class="font-semibold text-sidebar-foreground tracking-tight whitespace-nowrap">
+								Crear Colombia ${hostname}
+							</span>
 						</div>
 					</div>
 					<div class="flex-1 py-4 overflow-y-auto">
