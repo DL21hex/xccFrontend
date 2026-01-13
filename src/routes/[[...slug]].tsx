@@ -2,6 +2,7 @@ import { createSignal, For, Suspense, createEffect, Show } from "solid-js";
 import { useLocation } from "@solidjs/router";
 import CTA from "~/components/CTA";
 import Card from "~/components/Card";
+import Nav, { setActiveMenuItem } from "~/components/Nav";
 import { request } from "~/utils/request";
 
 interface ComponentItem {
@@ -12,6 +13,7 @@ interface ComponentItem {
 const componentMap: Record<string, any> = {
   CTA: CTA,
   Card: Card,
+  Nav: Nav,
 };
 
 const fetchContent = async (path: string) => {
@@ -70,6 +72,7 @@ export default function Home() {
   const location = useLocation();
 
   createEffect(async () => {
+    setActiveMenuItem(null);
     setLoading(true);
     setError(null);
     try {
