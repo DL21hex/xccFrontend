@@ -4,7 +4,7 @@ import { action, redirect } from "@solidjs/router";
 const loginAction = action(async (formData: FormData) => {
 	"use server";
 	try {
-		const response = await fetch("http://localhost/xcctechpeople/system/users/auth/authenticate_public", {
+		const response = await fetch("http://localhost/xcctechpeople/xcc/system/users/authenticate_public", {
 			method: "POST",
 			body: formData,
 		});

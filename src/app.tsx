@@ -119,7 +119,7 @@ return (
 					<IconUser class="lucide h-[18px] w-[18px] shrink-0" />
 					<span class={isSidebarCollapsed() ? 'hidden' : ''}>Mi perfil</span>
 				</a>
-				<a href="/logout_public" class={`flex items-center w-full rounded-md text-[13px] font-medium transition-colors ${isSidebarCollapsed() ? 'justify-center px-2' : 'justify-start gap-3 px-3'} py-2 text-destructive/80 hover:bg-destructive/10 hover:text-destructive`} data-state="closed" data-slot="tooltip-trigger" title={isSidebarCollapsed() ? "Cerrar sesión" : undefined}>
+				<a href="/system/users/logout_public" class={`flex items-center w-full rounded-md text-[13px] font-medium transition-colors ${isSidebarCollapsed() ? 'justify-center px-2' : 'justify-start gap-3 px-3'} py-2 text-destructive/80 hover:bg-destructive/10 hover:text-destructive`} data-state="closed" data-slot="tooltip-trigger" title={isSidebarCollapsed() ? "Cerrar sesión" : undefined}>
 					<IconLogOut class="lucide h-[18px] w-[18px] shrink-0" />
 					<span class={isSidebarCollapsed() ? 'hidden' : ''}>Cerrar sesión</span>
 				</a>

@@ -14,7 +14,7 @@ export default createMiddleware({
 
 			try
 			{
-				const response = await fetch("http://localhost/xcctechpeople/system/users/auth/validate_session_public", {
+				const response = await fetch("http://localhost/xcctechpeople/xcc/system/users/validate_session_public", {
 					method: "GET",
 					headers: {
 						Cookie: cookieHeader || "",

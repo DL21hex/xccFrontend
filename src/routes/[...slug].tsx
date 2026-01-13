@@ -27,7 +27,8 @@ interface PageResponse {
 }
 
 const fetchContent = async (path: string) => {
-	return request<PageResponse>(`http://localhost/xcctechpeople/xcc/${path}`);
+	const result = path === "/" ? "/home/index_for_all" : path;
+	return request<PageResponse>(`http://localhost/xcctechpeople/xcc/${result}`);
 };
 
 export default function CatchAll()
