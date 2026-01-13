@@ -1,6 +1,6 @@
 import { Router, useLocation } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
-import { Suspense, createSignal, onMount, Show } from "solid-js";
+import { Suspense, createSignal, createEffect, Show } from "solid-js";
 import Nav from "~/components/Nav";
 import { request } from "~/utils/request";
 import "./app.css";
@@ -38,15 +38,40 @@ export default function App()
 		header: { full_name: "Skeleton...", position_name: "Skeleton...", avatar: "" }
 	});
 
-	onMount(async () => {
-		const data = await fetchTemplate();
-		setTemplate(data);
-	});
+
 
 return (
 	<Router
 	root={(props) => {
 		const location = useLocation();
+
+		createEffect(() => {
+			if (location.pathname === "/login") {
+				localStorage.removeItem("template_data");
+				if (template().tenant.name !== "Skeleton...") {
+					setTemplate({
+						tenant: { name: "Skeleton...", logo: "images/xcc_small.png", primary_color: "#219ebc", light_color: "#E3F6FB", logo_width: "96px" },
+						main_menu: [],
+						header: { full_name: "Skeleton...", position_name: "Skeleton...", avatar: "" }
+					});
+				}
+			} else {
+				const cached = localStorage.getItem("template_data");
+				if (cached) {
+					if (template().tenant.name === "Skeleton...") {
+						setTemplate(JSON.parse(cached));
+					}
+				} else {
+					if (template().tenant.name === "Skeleton...") {
+						fetchTemplate().then((data) => {
+							localStorage.setItem("template_data", JSON.stringify(data));
+							setTemplate(data);
+						});
+					}
+				}
+			}
+		});
+
 		return (
 		<div class="flex h-screen bg-background">
 			<style>{`:root {--primary: ${template().tenant?.primary_color}; --light-color: ${template().tenant?.light_color}; --logo-width: ${template().tenant?.logo_width};}`}</style>
