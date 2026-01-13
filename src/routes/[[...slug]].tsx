@@ -76,7 +76,7 @@ export default function Home() {
     setLoading(true);
     setError(null);
     try {
-      const path = location.pathname === "/" ? "home_public" : location.pathname.substring(1);
+      const path = location.pathname === "/" ? "home/index_for_all" : location.pathname.substring(1);
       const data = await fetchContent(path);
 
       if (!Array.isArray(data)) {
