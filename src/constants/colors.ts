@@ -1,0 +1,48 @@
+export const SEMANTIC_COLORS = {
+  warning: {
+    bg: "bg-amber-600",
+    bgHover: "hover:bg-amber-700",
+    text: "text-white",
+    border: "border-l-amber-500",
+    lightBg: "bg-amber-100",
+    lightText: "text-amber-700",
+    iconBg: "bg-amber-100",
+    iconText: "text-amber-500",
+    gradient: "bg-gradient-to-r from-amber-50 to-white",
+  },
+  error: {
+    bg: "bg-red-600",
+    bgHover: "hover:bg-red-700",
+    text: "text-white",
+    border: "border-l-red-500",
+    lightBg: "bg-red-100",
+    lightText: "text-red-700",
+    iconBg: "bg-red-100",
+    iconText: "text-red-500",
+    gradient: "bg-gradient-to-r from-red-50 to-white",
+  },
+  info: {
+    bg: "bg-blue-600",
+    bgHover: "hover:bg-blue-700",
+    text: "text-white",
+    border: "border-l-blue-500",
+    lightBg: "bg-blue-100",
+    lightText: "text-blue-700",
+    iconBg: "bg-blue-100",
+    iconText: "text-blue-500",
+    gradient: "bg-gradient-to-r from-blue-50 to-white",
+  },
+  success: {
+    bg: "bg-green-600",
+    bgHover: "hover:bg-green-700",
+    text: "text-white",
+    border: "border-l-green-500",
+    lightBg: "bg-green-100",
+    lightText: "text-green-700",
+    iconBg: "bg-green-100",
+    iconText: "text-green-500",
+    gradient: "bg-gradient-to-r from-green-50 to-white",
+  },
+} as const;
+
+export type SemanticType = keyof typeof SEMANTIC_COLORS;
