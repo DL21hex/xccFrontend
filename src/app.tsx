@@ -1,8 +1,9 @@
 import { Router, useLocation } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
-import { Suspense, createSignal, createEffect, Show, onMount, onCleanup } from "solid-js";
+import { Suspense, createSignal, createEffect, Show, onMount, onCleanup, For } from "solid-js";
 import Nav from "~/components/Nav";
 import "./app.css";
+import { Breadcrumb, breadcrumbs } from "~/components/Breadcrumb";
 
 import IconLogOut from '~icons/lucide/log-out';
 import IconPanelLeft from '~icons/lucide/panel-left';
@@ -10,6 +11,7 @@ import IconSearch from '~icons/lucide/search';
 import IconBell from '~icons/lucide/bell';
 import IconSun from '~icons/lucide/sun';
 import IconMoon from '~icons/lucide/moon';
+import IconUser from '~icons/lucide/user';
 
 interface TenantInfo { name: string; logo: string; primary_color: string; light_color: string; logo_width: string; }
 interface MenuItem { id: string; label: string; href: string; icon: string; is_active?: boolean;}
@@ -90,6 +92,10 @@ return (
 			<div class="mt-auto">
 			<div data-orientation="horizontal" role="none" data-slot="separator" class={`bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mx-3 ${isSidebarCollapsed() ? 'hidden' : ''}`}></div>
 			<div class={`py-3 space-y-0.5 ${isSidebarCollapsed() ? 'px-2' : 'px-3'}`}>
+				<a href="/system/users/general_information_for_all" class={`flex items-center w-full rounded-md text-[13px] font-medium transition-all duration-150 ${isSidebarCollapsed() ? 'justify-center px-2' : 'justify-start gap-3 px-3'} py-2 text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground`} data-state="closed" data-slot="tooltip-trigger" title={isSidebarCollapsed() ? "Mi Perfil" : undefined}>
+					<IconUser class="lucide h-[18px] w-[18px] shrink-0 text-sidebar-foreground/60" />
+					<span class={isSidebarCollapsed() ? 'hidden' : ''}>Mi Perfil</span>
+				</a>
 				<a href="/system/users/logout_public" class={`flex items-center w-full rounded-md text-[13px] font-medium transition-colors ${isSidebarCollapsed() ? 'justify-center px-2' : 'justify-start gap-3 px-3'} py-2 text-destructive/80 hover:bg-destructive/10 hover:text-destructive`} data-state="closed" data-slot="tooltip-trigger" title={isSidebarCollapsed() ? "Cerrar sesión" : undefined}>
 					<IconLogOut class="lucide h-[18px] w-[18px] shrink-0" />
 					<span class={isSidebarCollapsed() ? 'hidden' : ''}>Cerrar sesión</span>
@@ -106,7 +112,14 @@ return (
 					<button onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed())} data-slot="tooltip-trigger" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent dark:hover:bg-accent/50 size-9 text-muted-foreground hover:text-foreground" data-state="closed">
 						<IconPanelLeft class="lucide h-5 w-5" />
 					</button>
-					<div class="relative hidden md:flex items-center"></div>
+
+					<div data-orientation="vertical" role="none" data-slot="separator" class="bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:w-px mx-2 data-[orientation=vertical]:h-4"></div>
+
+					<div class="relative hidden md:flex items-center">
+						<Show when={breadcrumbs().length > 0}>
+							<Breadcrumb items={breadcrumbs()} />
+						</Show>
+					</div>
 				</div>
 				<div class="flex items-center gap-1">
 					<button data-slot="tooltip-trigger" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent dark:hover:bg-accent/50 size-9 text-muted-foreground hover:text-foreground md:hidden" data-state="closed">

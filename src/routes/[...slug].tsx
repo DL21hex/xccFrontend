@@ -4,6 +4,7 @@ import Card from "~/components/Card";
 import CTA from "~/components/CTA";
 import Nav, { setActiveMenuItem } from "~/components/Nav";
 import { request } from "~/utils/request";
+import { setBreadcrumbs } from "~/components/Breadcrumb";
 import IconFolderCode from '~icons/lucide/folder-code';
 import IconLoaderCircle from '~icons/lucide/loader-circle';
 
@@ -40,6 +41,7 @@ export default function CatchAll()
 	createEffect(async () => {
 		setLoading(true);
 		setActiveMenuItem(null);
+		setBreadcrumbs([]);
 		setNotFound(false);
 
 		try
@@ -56,7 +58,17 @@ export default function CatchAll()
 				setItems([]);
 				setNotFound(true);
 
-				// Acá debería validar si el usuario tiene sessión activa, y en caso de no tenerla redirigir al login.
+				// TODO: Acá debería validar si el usuario tiene sessión activa, y en caso de no tenerla redirigir al login.
+			}
+
+			if (data && data.breadcrumbs)
+			{
+				//setBreadcrumbs(data.breadcrumbs);
+				setBreadcrumbs([
+					{ label: "Home", href: "/" },
+					{ label: "Building Your Application", href: "#" },
+					{ label: "Data Fetching" }
+				]);
 			}
 
 			if (data && data.main_menu?.set_active) {
