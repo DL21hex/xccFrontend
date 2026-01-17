@@ -40,10 +40,12 @@
 			"binding": "TENANTS",
 			"id": "895b578fcd8545cb842bf71f2c09b73d"
 		},
+		/*
 		{
 			"binding": "SESSIONS",
 			"id": "XYZ"
 		}
+		*/
 	],
 	/**
 	 * Service Bindings (communicate between multiple Workers)
