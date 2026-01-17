@@ -12,6 +12,9 @@ const loginAction = action(async (formData: FormData) => {
 		console.log('Feching login API:', `${apiBaseUrl}/system/users/authenticate_public`);
 		const response = await fetch(`${apiBaseUrl}/system/users/authenticate_public`, {
 			method: "POST",
+			headers: {
+    			"Content-Type": "application/json"
+			},
 			body: formData,
 		});
 
